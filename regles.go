@@ -3,6 +3,7 @@ package main
 import (
 	"strconv"
 	"strings"
+	"unicode"
 )
 
 func Hex(mots []string) []string {
@@ -66,8 +67,9 @@ func Cap(mots []string) []string {
 	resultat := []string{}
 	for _, mot := range mots {
 		if mot == "(cap)" && len(resultat) > 0 {
-			dernierMot := resultat[len(resultat)-1]
-			resultat[len(resultat)-1] = strings.Title(dernierMot)
+			lettres := []rune(mot)
+			lettres[0] = unicode.ToUpper(lettres[0])
+			resultat[len(resultat)-1] = string(lettres)
 		} else {
 			resultat = append(resultat, mot)
 		}
