@@ -18,5 +18,4 @@ func main() {
 	}
 	mots := strings.Fields(string(contenu))
 	fmt.Println(mots)
-
 }
