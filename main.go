@@ -16,6 +16,14 @@ func main() {
 		fmt.Println("Error reading input file:", err)
 		os.Exit(1)
 	}
+	fichier, err := os.Create(os.Args[2])
+	if err != nil {
+		fmt.Println("Error creating output file:", err)
+		os.Exit(1)
+	}
+	defer fichier.Close()
+
 	mots := strings.Fields(string(contenu))
+
 	fmt.Println(mots)
 }
