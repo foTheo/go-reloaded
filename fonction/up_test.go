@@ -13,6 +13,7 @@ func TestUp(t *testing.T) {
 	}{
 		{"up", []string{"Hello", "world", "(up)"}, []string{"Hello", "WORLD"}},
 		{"non-up", []string{"Hello", "world"}, []string{"Hello", "world"}},
+		{"cour-test", []string{"Ready", "set", "go", "(up)"}, []string{"Ready", "set", "GO"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {

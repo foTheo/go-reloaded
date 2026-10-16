@@ -13,6 +13,7 @@ func TestBin(t *testing.T) {
 	}{
 		{"bin", []string{"101", "(bin)"}, []string{"5"}},
 		{"non-bin", []string{"101", "hello"}, []string{"101", "hello"}},
+		{"cour-test", []string{"It", "has", "been", "10", "(bin)", "years​"}, []string{"It", "has", "been", "2", "years​"}},
 	}
 
 	for _, tt := range tests {

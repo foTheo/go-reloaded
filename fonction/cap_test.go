@@ -13,6 +13,7 @@ func TestCap(t *testing.T) {
 	}{
 		{"cap", []string{"hello", "world", "(cap)"}, []string{"hello", "World"}},
 		{"non-cap", []string{"hello", "world"}, []string{"hello", "world"}},
+		{"cour-test", []string{"Welcome", "to", "the", "Brooklyn", "bridge", "(cap)"}, []string{"Welcome", "to", "the", "Brooklyn", "Bridge"}},
 	}
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
