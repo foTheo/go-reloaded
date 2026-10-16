@@ -5,9 +5,10 @@ import (
 	"strings"
 )
 
-func N_mots(s string) int {
+func Nmots(s string) int {
 	s = strings.TrimSpace(s)
 	s = strings.TrimSuffix(s, ")")
+	s = strings.TrimSpace(s)
 	n, err := strconv.Atoi(s)
 	if err != nil {
 		return 0
@@ -36,26 +37,35 @@ func Capitaliser(mot string) string {
 
 func Transformer(mots []string, nomMarqueur string, transformation func(string) string) []string {
 	resultat := []string{}
-	i := 0
+	simple := "(" + nomMarqueur + ")"
+	debutN := "(" + nomMarqueur + ","
 
-	for i < len(mots) {
+	for i := 0; i < len(mots); i++ {
 		mot := mots[i]
 
-		if mot == "("+nomMarqueur+")" {
+		switch {
+		case mot == simple:
 			AppliquerN_mots(resultat, 1, transformation)
-			i++
-		} else if mot == "("+nomMarqueur+"," && i+1 < len(mots) {
-			N := N_mots(mots[i+1])
+
+		case mot == debutN && i+1 < len(mots):
+			N := Nmots(mots[i+1])
 			if N > 0 {
 				AppliquerN_mots(resultat, N, transformation)
-				i += 2
+				i++ // on consomme aussi le token "N)"
 			} else {
 				resultat = append(resultat, mot)
-				i++
 			}
-		} else {
+
+		case strings.HasPrefix(mot, debutN) && strings.HasSuffix(mot, ")"):
+			N := Nmots(strings.TrimPrefix(mot, debutN))
+			if N > 0 {
+				AppliquerN_mots(resultat, N, transformation)
+			} else {
+				resultat = append(resultat, mot)
+			}
+
+		default:
 			resultat = append(resultat, mot)
-			i++
 		}
 	}
 	return resultat
